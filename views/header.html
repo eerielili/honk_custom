@@ -61,15 +61,15 @@
 	
 <!-- CUSTOM HONK NAVIGATION BAR -->
 	<div  id="altnavbar">
-		<a href="/newhonk">new honk</a> |
-		<a href="/front">fanfare</a> | 
+		<a href="/newhonk" tabindex="2">new honk</a> |
+		<a href="/front">front</a> | 
 		<a href="/">home</a> | 
 		<a href="/xzone">fetch</a> | 
 		<a href="/atme">@me</a> | 
-		<a href="/u/{{ .UserInfo.Username}}">my honks</a> | 
+		<a href="/u/{{ .UserInfo.Username}}">profile</a> | 
 		<a href="/account">settings</a> |
 		<form style="display:inline" action="/q" method="GET">
-		    <input type="text" name="q" autocomplete="off" size="10" placeholder="search">
+		    <input type="text" tabindex="1" name="q" autocomplete="off" size="10" placeholder="search">
 		</form> 
 	</div>
 <!-- END -->
