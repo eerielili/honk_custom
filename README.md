@@ -16,4 +16,4 @@ following : `man patch`.
 # Screenshots
 
 Alternative navigation bar, less uses of the drop down menu:
-[alt nav bar menu for honk](https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png)
+[alt nav bar menu for honk](<img src="https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png" alt="">)
