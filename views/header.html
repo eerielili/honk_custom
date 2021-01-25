@@ -18,18 +18,7 @@
 <header>
 {{ if .UserInfo }}
 <details id="topmenu">
-	<summary>menu | 
-		<a href="/newhonk">new honk</a> |
-		<a href="/front">fanfare</a> | 
-		<a href="/">home</a> | 
-		<a href="/xzone">fetch</a> | 
-		<a href="/atme">@me</a> | 
-		<a href="/u/{{ .UserInfo.Username}}">my honks</a> | 
-		<a href="/account">settings</a> |
-        <form action="/q" method="GET">
-            <input type="text" name="q" autocomplete="off" size="10" placeholder="search">
-        </form> 
-		<span> {{ .UserInfo.Username }}</span></summary>
+	<summary>menu <span> {{ .UserInfo.Username }}</span></summary>
 <ul>
 <li><a id="homelink" href="/">home</a>
 <li><a id="atmelink" href="/atme">@me</a>
@@ -69,6 +58,22 @@
 </form>
 </ul>
 </details>
+	
+<!-- CUSTOM HONK NAVIGATION BAR -->
+	<div  id="altnavbar">
+		<a href="/newhonk">new honk</a> |
+		<a href="/front">fanfare</a> | 
+		<a href="/">home</a> | 
+		<a href="/xzone">fetch</a> | 
+		<a href="/atme">@me</a> | 
+		<a href="/u/{{ .UserInfo.Username}}">my honks</a> | 
+		<a href="/account">settings</a> |
+		<form style="display:inline" action="/q" method="GET">
+		    <input type="text" name="q" autocomplete="off" size="10" placeholder="search">
+		</form> 
+	</div>
+<!-- END -->
+
 <p id="topspacer"></p>
 {{ else }}
 <span><a id="homelink" href="/">home</a></span>
