@@ -25,7 +25,10 @@
 		<a href="/xzone">fetch</a> | 
 		<a href="/atme">@me</a> | 
 		<a href="/u/{{ .UserInfo.Username}}">my honks</a> | 
-		<a href="/account">settings</a>
+		<a href="/account">settings</a> |
+        <form action="/q" method="GET">
+            <input type="text" name="q" autocomplete="off" size="10" placeholder="search">
+        </form> 
 		<span> {{ .UserInfo.Username }}</span></summary>
 <ul>
 <li><a id="homelink" href="/">home</a>
