@@ -22,9 +22,9 @@
 <details id="topmenu">
 	<summary>menu <span> {{ .UserInfo.Username }}</span></summary>
 <ul>
-<li><a id="homelink" href="/">home</a>
-<li><a id="atmelink" href="/atme">@me</a>
-<li><a id="firstlink" href="/first">first</a>
+<li><a id="homelink" href="/">accueil</a>
+<li><a id="atmelink" href="/atme">@moi</a>
+<li><a id="firstlink" href="/first">premier</a>
 <li style="list-style-type:none; margin-left:-1em">
 <details>
 <summary>combos</summary>
@@ -34,54 +34,56 @@
 {{ end }}
 </ul>
 </details>
-<li><a href="/chatter">chatter</a>
-<li><a href="/o">tags</a>
-<li><a href="/events">events</a>
-<li><a id="longagolink" href="/longago">long ago</a>
-<li><a id="savedlink" href="/saved">saved</a>
+<li><a href="/chatter">discutaille</a>
+<li><a href="/o">balises</a>
+<li><a href="/events">moments</a>
+<li><a id="longagolink" href="/longago">il y a un temps</a>
+<li><a id="savedlink" href="/saved">sauvegardés</a>
 <li><a href="/honkers">honkers</a>
-<li><a href="/hfcs">filters</a>
-<li><a href="/account">account</a>
+<li><a href="/hfcs">filtres</a>
+<li><a href="/account">mon compte</a>
 <li style="list-style-type:none; margin-left:-1em">
 <details>
-<summary>more stuff</summary>
+<summary>plus de choses</summary>
 <ul>
 <li><a href="/{{ .UserSep }}/{{ .UserInfo.Username }}">my honks</a>
-<li><a href="/about">about</a>
-<li><a href="/front">front</a>
+<li><a href="/about">à propos</a>
+<li><a href="/front">tout</a>
 <li><a href="/funzone">funzone</a>
 <li><a href="/xzone">xzone</a>
 </ul>
 </details>
-<li><a href="/help/honk.1.html">help</a>
+<li><a href="/help/honk.1.html">aide</a>
 <li>
 <form action="/q" method="GET">
-<input type="text" name="q" autocomplete=off size=10 placeholder="search">
+<input type="text" name="q" autocomplete=off size=10
+placeholder="rechercher">
 </form>
 </ul>
 </details>
 	
 <!-- CUSTOM HONK NAVIGATION BAR -->
 	<div  id="altnavbar">
-		<a href="/newhonk" tabindex="2">new honk</a> |
+		<a href="/newhonk" tabindex="2">🎺</a> |
 		<a href="/front">front</a> | 
-		<a href="/">home</a> | 
-		<a href="/xzone">fetch</a> | 
-		<a href="/atme">@me</a> | 
-		<a href="/u/{{ .UserInfo.Username}}">profile</a> | 
-		<a href="/account">settings</a> |
+		<a href="/">accueil</a> | 
+		<a href="/xzone">récup</a> | 
+		<a href="/atme">@moi</a> | 
+		<a href="/u/{{ .UserInfo.Username}}">profil</a> | 
+		<a href="/account">⚙️</a> |
 		<form style="display:inline" action="/q" method="GET">
-		    <input type="text" tabindex="1" name="q" autocomplete="off" size="10" placeholder="search">
+		    <input type="text" tabindex="1" name="q" autocomplete="off"
+            size="10" placeholder="rechercher">
 		</form> 
 	</div>
 <!-- END -->
 
 <p id="topspacer"></p>
 {{ else }}
-<span><a id="homelink" href="/">home</a></span>
-<span><a href="/o">tags</a></span>
-<span><a href="/events">events</a></span>
-<span><a href="/about">about</a></span>
+<span><a id="homelink" href="/">accueil</a></span>
+<span><a href="/o">balises</a></span>
+<span><a href="/events">moments</a></span>
+<span><a href="/about">à propos</a></span>
 {{ if .ShowRSS }}
 <span><a href="/rss">rss</a></span>
 {{ end }}
