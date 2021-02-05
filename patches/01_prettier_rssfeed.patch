@@ -1,0 +1,16 @@
+diff --git a/web.go b/web.go
+index 11adf5b..502e15f 100644
+--- a/web.go
++++ b/web.go
+@@ -190,9 +190,9 @@ func showrss(w http.ResponseWriter, r *http.Request) {
+ 		name += " "
+ 	}
+ 	feed := rss.Feed{
+-		Title:       name + "honk",
++		Title:       "@" + name + " - honking from " + serverName,
+ 		Link:        home,
+-		Description: name + "honk rss",
++		Description: "RSS Feed of honks from " + name + "@" + serverName,
+ 		Image: &rss.Image{
+ 			URL:   base + "icon.png",
+ 			Title: name + "honk rss",
