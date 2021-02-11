@@ -1,0 +1,52 @@
+diff --git a/web.go b/web.go
+index 11adf5b..8e42bae 100644
+--- a/web.go
++++ b/web.go
+@@ -85,6 +85,9 @@ func getInfo(r *http.Request) map[string]interface{} {
+ 	templinfo["IconName"] = iconName
+ 	templinfo["UserInfo"] = u
+ 	templinfo["UserSep"] = userSep
++    templinfo["Lang"] = getLangCookie(r)
++    templinfo["i18n"] = setLangStr(getLangCookie(r))
++
+ 	if u != nil {
+ 		var combos []string
+ 		combocache.Get(u.UserID, &combos)
+@@ -99,7 +102,7 @@ func homepage(w http.ResponseWriter, r *http.Request) {
+ 	var honks []*Honk
+ 	var userid int64 = -1
+ 
+-	templinfo["ServerMessage"] = serverMsg
++    templinfo["ServerMessage"] = serverMsg
+ 	if u == nil || r.URL.Path == "/front" {
+ 		switch r.URL.Path {
+ 		case "/events":
+@@ -733,6 +736,8 @@ func showhonker(w http.ResponseWriter, r *http.Request) {
+ 	templinfo["PageArg"] = name
+ 	templinfo["ServerMessage"] = msg
+ 	templinfo["HonkCSRF"] = login.GetCSRF("honkhonk", r)
++    templinfo["Lang"] = getLangCookie(r)
++
+ 	honkpage(w, u, honks, templinfo)
+ }
+ 
+@@ -1109,8 +1114,9 @@ func saveuser(w http.ResponseWriter, r *http.Request) {
+ 		options.MapLink = ""
+ 	}
+ 	options.Reaction = r.FormValue("reaction")
+-
+-	sendupdate := false
++    setLangCookie(w, r)
++	
++    sendupdate := false
+ 	ava := re_avatar.FindString(whatabout)
+ 	if ava != "" {
+ 		whatabout = re_avatar.ReplaceAllString(whatabout, "")
+@@ -2436,6 +2442,7 @@ func serve() {
+ 	getters.HandleFunc("/server", serveractor)
+ 	posters.HandleFunc("/server/inbox", serverinbox)
+ 	posters.HandleFunc("/inbox", serverinbox)
++    posters.HandleFunc("/langcookie", setLangCookie)
+ 
+ 	getters.HandleFunc("/style.css", serveasset)
+ 	getters.HandleFunc("/local.css", serveasset)
