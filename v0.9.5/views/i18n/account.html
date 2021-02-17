@@ -1,0 +1,62 @@
+{{ template "header.html" . }}
+<main>
+<div class="info">
+<p>{{ .i18n.Account }} - <a href="/logout?CSRF={{ .LogoutCSRF }}">{{ .i18n.Logout }}</a>
+<p>{{ .i18n.Username }}: {{ .User.Name }}
+<div>
+<form id="aboutform" action="/saveuser" method="POST">
+<input type="hidden" name="CSRF" value="{{ .UserCSRF }}">
+<p>{{ .i18n.Aboutme }}:
+<p><textarea name="whatabout">{{ .WhatAbout }}</textarea>
+
+<p><label class="button" for="skinny">{{ .i18n.Slayout }}:</label>
+<input tabindex=1 type="checkbox" id="skinny" name="skinny" value="skinny" {{ if .User.Options.SkinnyCSS }}checked{{ end }}><span></span>
+
+<p><label class="button" for="omitimages">{{ .i18n.NoImg }}:</label>
+<input tabindex=1 type="checkbox" id="omitimages" name="omitimages" value="omitimages" {{ if .User.Options.OmitImages }}checked{{ end }}><span></span>
+
+<p><label class="button" for="mentionall">{{ .i18n.MentionAll }}:</label>
+<input tabindex=1 type="checkbox" id="mentionall" name="mentionall" value="mentionall" {{ if .User.Options.MentionAll }}checked{{ end }}><span></span>
+
+<p><label class="button" for="maps">{{ .i18n.AppleMapsLinks }}:</label>
+<input tabindex=1 type="checkbox" id="maps" name="maps" value="apple" {{ if eq "apple" .User.Options.MapLink }}checked{{ end }}><span></span>
+
+<p><label class="button" for="reaction">{{ .i18n.Reaction }}:</label>
+<select tabindex=1 name="reaction">
+    <option {{ and (eq .User.Options.Reaction "none") "selected" }}>none</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F61E") "selected" }}>{{ "\U0001F61E" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F937") "selected" }}>{{ "\U0001F937" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F648") "selected" }}>{{ "\U0001F648" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F9BE") "selected" }}>{{ "\U0001F9BE" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F346") "selected" }}>{{ "\U0001F346" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F351") "selected" }}>{{ "\U0001F351" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F32E") "selected" }}>{{ "\U0001F32E" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F951") "selected" }}>{{ "\U0001F951" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F5FF") "selected" }}>{{ "\U0001F5FF" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F99A") "selected" }}>{{ "\U0001F99A" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F3BB") "selected" }}>{{ "\U0001F3BB" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001FA93") "selected" }}>{{ "\U0001FA93" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F1EB") "selected" }}>{{ "\U0001F1EB" }}</option>
+    <option {{ and (eq .User.Options.Reaction "\U0001F1FD") "selected" }}>{{ "\U0001F1FD" }}</option>
+</select>
+
+<p><label class="button" for="lang">{{ .i18n.LanguageLabel }}:</label>
+<select name="lang">
+    <option {{ and (eq .Lang "en") "selected"}}>en</option>
+    <option {{ and (eq .Lang "fr") "selected"}}>fr</option>
+</select>
+
+<p><button>{{ .i18n.UpdateSettings }}</button>
+</form>
+</div>
+<hr>
+<div>
+<form action="/chpass" method="POST">
+<input type="hidden" name="CSRF" value="{{ .LogoutCSRF }}">
+<p>{{ .i18n.ChangePwd }}
+<p><input tabindex=1 type="password" name="oldpass"> - {{ .i18n.OldPwd }}
+<p><input tabindex=1 type="password" name="newpass"> - {{ .i18n.NewPwd }}
+<p><button>{{ .i18n.ChangePwdBtn }}</button>
+</form>
+</div>
+</main>

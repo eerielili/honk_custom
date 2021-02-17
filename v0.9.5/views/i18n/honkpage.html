@@ -1,0 +1,45 @@
+{{ template "header.html" . }}
+<main>
+<div class="info" id="infobox">
+<div id="srvmsg">
+{{ if .Name }}
+<p>{{ .Name }} <span style="margin-left:1em;"><a href="/u/{{ .Name }}/rss">rss</a></span>
+<p>{{ .WhatAbout }}
+{{ end }}
+<p>{{ .ServerMessage }}
+</div>
+{{ if .HonkCSRF }}
+{{ template "honkform.html" . }}
+<script>
+var csrftoken = {{ .HonkCSRF }}
+var honksforpage = { }
+var curpagestate = { name: "{{ .PageName }}", arg : "{{ .PageArg }}" }
+var tophid = { }
+tophid[curpagestate.name + ":" + curpagestate.arg] = "{{ .TopHID }}"
+var servermsgs = { }
+servermsgs[curpagestate.name + ":" + curpagestate.arg] = "{{ .ServerMessage }}"
+</script>
+<script src="/honkpage.js{{ .JSParam }}"></script>
+{{ end }}
+</div>
+{{ if and .HonkCSRF (not .IsPreview) }}
+<div class="info" id="refreshbox">
+<p><button onclick="refreshhonks(this)">{{ .i18n.Refresh }}</button><span></span>
+<button onclick="oldestnewest(this)">{{ .i18n.ScrollDown }}</button>
+</div>
+{{ if eq .ServerMessage .i18n.MoarHonks }} <script> hideelement("refreshbox")</script> {{ end }}
+{{ end }}
+<div id="honksonpage">
+<div>
+{{ $BonkCSRF := .HonkCSRF }}
+{{ $IsPreview := .IsPreview }}
+{{ $MapLink := .MapLink }}
+{{ $Badonk := .User.Options.Reaction }}
+{{ $i18n := .i18n }}
+{{ $OmitImages := .User.Options.OmitImages }}
+{{ range .Honks }}
+{{ template "honk.html" map "Honk" . "MapLink" $MapLink "BonkCSRF" $BonkCSRF "IsPreview" $IsPreview "Badonk" $Badonk "OmitImages" $OmitImages "i18n" $i18n }}
+{{ end }}
+</div>
+</div>
+</main>

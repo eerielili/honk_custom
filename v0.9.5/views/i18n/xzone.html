@@ -1,0 +1,17 @@
+{{ template "header.html" . }}
+<main>
+<div class="info">
+<form action="/ximport" method="POST">
+<input type="hidden" name="CSRF" value="{{ .XCSRF }}">
+<p><span class="title">{{ .i18n.Import }}</span>
+<p><input tabindex=1 type="text" name="xid" autocomplete=off> - xid
+<p><button tabindex=1 name="fetch" value="{{ .i18n.Fetch }}">{{ .i18n.Fetch }}</button>
+</form>
+</div>
+{{ $i18n := .i18n }}
+{{ range .Honkers }}
+<section class="honk">
+<p><a href="/h?xid={{ .XID }}">{{ $i18n.Honks }}</a> {{ $i18n.HonksFrom }} {{ .Handle }}
+</section>
+{{ end }}
+</main>

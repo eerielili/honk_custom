@@ -13,7 +13,11 @@ this repository and then copy the contents of the `views` directory on
 your honk `views` directory. For patches, I advice you to execute the
 following : `man patch`.
 
+The translations are contained in the `i18n.go` file at the root
+of this repo. The structure is fairly simple, contact me if you need
+help to add translations or notify me for problems with it.
+
 # Screenshots
 
 Alternative navigation bar, less uses of the drop down menu:
-[alt nav bar menu for honk](<img src="https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png" alt="">)
+[alt nav bar menu for honk](https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png)
