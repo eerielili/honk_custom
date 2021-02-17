@@ -44,6 +44,7 @@ type i18n struct {
     Help string
     Search string
     Login string
+    SetLang string
     Pwd string
     Refresh string
     ScrollDown string
@@ -237,6 +238,7 @@ func setLangStr (lang string) interface{} {
                 "aide",
                 "rechercher",
                 "connexion",
+                "changer langue",
                 "mot de passe",
                 "rafraîchir",
                 "bas de page",
@@ -372,6 +374,7 @@ func setLangStr (lang string) interface{} {
                 "help",
                 "search",
                 "login",
+                "set lang",
                 "password",
                 "refresh",
                 "scroll down",
