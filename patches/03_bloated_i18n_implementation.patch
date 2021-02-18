@@ -1,5 +1,5 @@
 diff --git a/web.go b/web.go
-index 11adf5b..7c0c184 100644
+index 11adf5b..d15fbac 100644
 --- a/web.go
 +++ b/web.go
 @@ -85,6 +85,9 @@ func getInfo(r *http.Request) map[string]interface{} {
@@ -12,7 +12,7 @@ index 11adf5b..7c0c184 100644
  	if u != nil {
  		var combos []string
  		combocache.Get(u.UserID, &combos)
-@@ -99,7 +102,7 @@ func homepage(w http.ResponseWriter, r *http.Request) {
+@@ -99,12 +102,17 @@ func homepage(w http.ResponseWriter, r *http.Request) {
  	var honks []*Honk
  	var userid int64 = -1
  
@@ -21,7 +21,18 @@ index 11adf5b..7c0c184 100644
  	if u == nil || r.URL.Path == "/front" {
  		switch r.URL.Path {
  		case "/events":
-@@ -113,17 +116,32 @@ func homepage(w http.ResponseWriter, r *http.Request) {
+ 			honks = geteventhonks(userid)
+-			templinfo["ServerMessage"] = "some recent and upcoming events"
++            switch templinfo["Lang"] {
++                case "fr":
++                    templinfo["ServerMessage"] = "quelques évenements récents et à venir"
++                default:
++                    templinfo["ServerMessage"] = "some recent and upcoming events"
++            }
+ 		default:
+ 			templinfo["ShowRSS"] = true
+ 			honks = getpublichonks()
+@@ -113,17 +121,32 @@ func homepage(w http.ResponseWriter, r *http.Request) {
  		userid = u.UserID
  		switch r.URL.Path {
  		case "/atme":
@@ -57,7 +68,7 @@ index 11adf5b..7c0c184 100644
  			templinfo["PageName"] = "events"
  			honks = geteventhonks(userid)
  			honks = osmosis(honks, userid, true)
-@@ -132,7 +150,12 @@ func homepage(w http.ResponseWriter, r *http.Request) {
+@@ -132,7 +155,12 @@ func homepage(w http.ResponseWriter, r *http.Request) {
  			honks = gethonksforuserfirstclass(userid, 0)
  			honks = osmosis(honks, userid, true)
  		case "/saved":
@@ -71,7 +82,7 @@ index 11adf5b..7c0c184 100644
  			templinfo["PageName"] = "saved"
  			honks = getsavedhonks(userid, 0)
  		default:
-@@ -733,6 +756,8 @@ func showhonker(w http.ResponseWriter, r *http.Request) {
+@@ -733,6 +761,8 @@ func showhonker(w http.ResponseWriter, r *http.Request) {
  	templinfo["PageArg"] = name
  	templinfo["ServerMessage"] = msg
  	templinfo["HonkCSRF"] = login.GetCSRF("honkhonk", r)
@@ -80,7 +91,7 @@ index 11adf5b..7c0c184 100644
  	honkpage(w, u, honks, templinfo)
  }
  
-@@ -744,7 +769,12 @@ func showcombo(w http.ResponseWriter, r *http.Request) {
+@@ -744,7 +774,12 @@ func showcombo(w http.ResponseWriter, r *http.Request) {
  	templinfo := getInfo(r)
  	templinfo["PageName"] = "combo"
  	templinfo["PageArg"] = name
@@ -94,7 +105,7 @@ index 11adf5b..7c0c184 100644
  	templinfo["HonkCSRF"] = login.GetCSRF("honkhonk", r)
  	honkpage(w, u, honks, templinfo)
  }
-@@ -1109,8 +1139,9 @@ func saveuser(w http.ResponseWriter, r *http.Request) {
+@@ -1109,8 +1144,9 @@ func saveuser(w http.ResponseWriter, r *http.Request) {
  		options.MapLink = ""
  	}
  	options.Reaction = r.FormValue("reaction")
@@ -106,7 +117,7 @@ index 11adf5b..7c0c184 100644
  	ava := re_avatar.FindString(whatabout)
  	if ava != "" {
  		whatabout = re_avatar.ReplaceAllString(whatabout, "")
-@@ -2179,11 +2210,22 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
+@@ -2179,11 +2215,22 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
  	case "atme":
  		honks = gethonksforme(userid, wanted)
  		honks = osmosis(honks, userid, false)
@@ -131,7 +142,7 @@ index 11adf5b..7c0c184 100644
  	case "home":
  		honks = gethonksforuser(userid, wanted)
  		honks = osmosis(honks, userid, true)
-@@ -2191,26 +2233,53 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
+@@ -2191,26 +2238,53 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
  	case "first":
  		honks = gethonksforuserfirstclass(userid, wanted)
  		honks = osmosis(honks, userid, true)
@@ -191,7 +202,7 @@ index 11adf5b..7c0c184 100644
  	default:
  		http.NotFound(w, r)
  	}
-@@ -2436,6 +2505,7 @@ func serve() {
+@@ -2436,6 +2510,7 @@ func serve() {
  	getters.HandleFunc("/server", serveractor)
  	posters.HandleFunc("/server/inbox", serverinbox)
  	posters.HandleFunc("/inbox", serverinbox)

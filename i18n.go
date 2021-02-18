@@ -130,6 +130,7 @@ type i18n struct {
 
     Import string
     Fetch string
+    Honks string
     HonksFrom string
 
     FunZoneGreet string
@@ -324,7 +325,8 @@ func setLangStr (lang string) interface{} {
 
                 "importer",
                 "récupérer",
-                "klaxons de",
+                "klaxons",
+                "de",
 
                 "Bienvenue dans la zone fun !",
 
@@ -460,7 +462,8 @@ func setLangStr (lang string) interface{} {
 
                 "import",
                 "fetch",
-                "honks from",
+                "honks",
+                "from",
 
                 "Welcome to the fun zone !",
 
