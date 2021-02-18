@@ -1,21 +1,34 @@
 # honk_custom
 
-Custom html page and templates or patches for the
+[download here](https://git.les-miquelots.net/honk_custom/snapshot/honk_custom-master.zip)
+
+Custom html templates and patches for the
 [honk](https://humungus.tedunangst.com/r/honk) federated
 ActivityPub server.
 These are mainly related to the UX, but patching of the Go files
 might happen if I feel the need.
 
-# How to use
+# i18n
 
-Clone or [download](https://git.les-miquelots.net/honk_custom/snapshot/honk_custom-master.zip)
-this repository and then copy the contents of the `views` directory on
-your honk `views` directory. For patches, I advice you to execute the
-following : `man patch`.
+The patch `03_bloated_i18n_implementation.patch` works on
+`web.go` in the latest changeset
+of honk, [dca9f49c629f](https://humungus.tedunangst.com/r/honk/v/dca9f49c629f).
 
-The translations are contained in the `i18n.go` file at the root
-of this repo. The structure is fairly simple, contact me if you need
-help to add translations or notify me for problems with it.
+The translations of honks are contained in the `i18n.go` and
+`views/i18n/honkpage.js` files. Contact me if you need
+help to add translations or notify me for problems, suggestions or
+improvements.
+
+Command line to do after adding translations to compile
+and run the i18n'd honk should ressemble this:
+```
+cp patches/03_bloated_i18n_implementation.patch ../honk/
+cp views/i18n/* ../honk/views/
+cd ../honk
+patch -b < 03_bloated_i18n_implementation.patch
+make all
+./honk
+```
 
 # Screenshots
 
