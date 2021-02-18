@@ -172,7 +172,7 @@ function refreshhonks(btn) {
 	args["tophid"] = tophid[stash]
 	get("/hydra?" + encode(args), function(xhr) {
 		var lenhonks = fillinhonks(xhr, true)
-		btn.innerHTML = "{{ .i18n.Duration }}"
+		btn.innerHTML = i18n_refreshing
 		btn.disabled = false
 		refreshupdate(" " + lenhonks + " new")
 	})
@@ -385,3 +385,6 @@ switch(honklang) {
         var i18n_refreshing = "refreshing"
 
 }
+
+//console.log("i18n_bonked: "+ i18n_bonked + "\n"+ "cookie: "+ getCookie("lang"))
+
