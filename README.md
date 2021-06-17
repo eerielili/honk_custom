@@ -23,6 +23,7 @@ sure to put them in the root of the cloned honk repo or untarred source.
 
 The `make rsstitle install` will :
 
+- download the tarballed source if not already done
 - apply the rsstitle patch
 - compile honk
 - copy manuals to the relevant sections in `/usr/share/man`
@@ -46,6 +47,11 @@ The translated strings are contained in the `i18n.go` and
 help to add translations or notify me for problems, suggestions or
 improvements.
 
+To apply: 
+```
+make i18n
+```
+
 ## rsstitle.patch : More descriptive RSS title and description
 
 Before the patch, the title and description of an user RSS Feed is like this:
@@ -60,6 +66,11 @@ After the patch:
 
 I find it clearer.
 
+To apply: 
+```
+make rsstitle
+```
+
 ## altnavbar.patch (and the i18n version): honking faster with less clicks
 
 You need to shitpost fast ? Look no further, this will add a floating
@@ -73,6 +84,11 @@ navigation bar at the page's top with link to:
 - /account
 
 The `altnavbar_i18n.patch` is the same, but the labels are i18n'd. 
+
+To apply: 
+```
+make altnavbar # or i18naltnavbar
+```
 
 # Screenshots
 
