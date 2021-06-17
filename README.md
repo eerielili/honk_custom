@@ -27,8 +27,8 @@ The `make rsstitle install` will :
 - compile honk
 - copy manuals to the relevant sections in `/usr/share/man`
 - copy html template to `/usr/share/honk`
-- created the **honk** user and group if not existing
-- created a systemd service if `SYSTEMD=1` is defined in the Makefile
+- create the **honk** user and group if not existing
+- create a systemd service if `SYSTEMD=1` is defined in the Makefile
 - initialize the honk database if not existing at `/usr/share/honk/honk.db`
 
 # Patches
