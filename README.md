@@ -21,6 +21,16 @@ and patch the source with the rsstitle.patch.
 The patches are useable outside the Makefile. You just have to make
 sure to put them in the root of the cloned honk repo or untarred source.
 
+The `make rsstitle install` will :
+
+- apply the rsstitle patch
+- compile honk
+- copy manuals to the relevant sections in `/usr/share/man`
+- copy html template to `/usr/share/honk`
+- created the **honk** user and group if not existing
+- created a systemd service if `SYSTEMD=1` is defined in the Makefile
+- initialize the honk database if not existing at `/usr/share/honk/honk.db`
+
 # Patches
 
 ## i18n.patch : Translation of the honk user interface
@@ -40,13 +50,13 @@ improvements.
 
 Before the patch, the title and description of an user RSS Feed is like this:
 
-- title : yourhandle honk
-- description: yourhandle honk rss
+- **title** : yourhandle honk
+- **description**: yourhandle honk rss
 
 After the patch:
 
-- title: @yourhandle - honking from honk.club
-- description: Honks from yourhandle@honk.club
+- **title**: @yourhandle - honking from honk.club
+- **description**: Honks from yourhandle@honk.club
 
 I find it clearer.
 
@@ -65,8 +75,5 @@ navigation bar at the page's top with link to:
 The `altnavbar_i18n.patch` is the same, but the labels are i18n'd. 
 
 # Screenshots
-
-Alternative navigation bar, less uses of the menu on the left:
-[alt nav bar menu for honk](https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png)
 
 A video of the i18n module and the navbar patch [here](https://partage.les-miquelots.net/img/honk_i18n.mp4)
