@@ -39,9 +39,12 @@ improvements.
 ## rsstitle.patch : More descriptive RSS title and description
 
 Before the patch, the title and description of an user RSS Feed is like this:
+
 - title : yourhandle honk
 - description: yourhandle honk rss
+
 After the patch:
+
 - title: @yourhandle - honking from honk.club
 - description: Honks from yourhandle@honk.club
 
