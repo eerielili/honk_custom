@@ -1,5 +1,5 @@
-diff --git a/web.go b/web.go
-index 11adf5b..d15fbac 100644
+diff --git a/honk-0.9.6/web.go.orig b/honk-0.9.6/web.go
+index 600f28b..cadca17 100644
 --- a/web.go
 +++ b/web.go
 @@ -85,6 +85,9 @@ func getInfo(r *http.Request) map[string]interface{} {
@@ -75,14 +75,14 @@ index 11adf5b..d15fbac 100644
 -			templinfo["ServerMessage"] = "saved honks"
 +            switch templinfo["Lang"] {
 +                case "fr":
-+                    templinfo["ServerMessage"] = "klaxons enregistrés"
++                    templinfo["ServerMessage"] = "klaxons "
 +                default:
 +                    templinfo["ServerMessage"] = "saved honks"
 +            }
  			templinfo["PageName"] = "saved"
  			honks = getsavedhonks(userid, 0)
  		default:
-@@ -733,6 +761,8 @@ func showhonker(w http.ResponseWriter, r *http.Request) {
+@@ -744,6 +772,8 @@ func showhonker(w http.ResponseWriter, r *http.Request) {
  	templinfo["PageArg"] = name
  	templinfo["ServerMessage"] = msg
  	templinfo["HonkCSRF"] = login.GetCSRF("honkhonk", r)
@@ -91,7 +91,7 @@ index 11adf5b..d15fbac 100644
  	honkpage(w, u, honks, templinfo)
  }
  
-@@ -744,7 +774,12 @@ func showcombo(w http.ResponseWriter, r *http.Request) {
+@@ -755,7 +785,12 @@ func showcombo(w http.ResponseWriter, r *http.Request) {
  	templinfo := getInfo(r)
  	templinfo["PageName"] = "combo"
  	templinfo["PageArg"] = name
@@ -105,7 +105,7 @@ index 11adf5b..d15fbac 100644
  	templinfo["HonkCSRF"] = login.GetCSRF("honkhonk", r)
  	honkpage(w, u, honks, templinfo)
  }
-@@ -1109,8 +1144,9 @@ func saveuser(w http.ResponseWriter, r *http.Request) {
+@@ -1120,8 +1155,9 @@ func saveuser(w http.ResponseWriter, r *http.Request) {
  		options.MapLink = ""
  	}
  	options.Reaction = r.FormValue("reaction")
@@ -117,7 +117,7 @@ index 11adf5b..d15fbac 100644
  	ava := re_avatar.FindString(whatabout)
  	if ava != "" {
  		whatabout = re_avatar.ReplaceAllString(whatabout, "")
-@@ -2179,11 +2215,22 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
+@@ -2192,11 +2228,22 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
  	case "atme":
  		honks = gethonksforme(userid, wanted)
  		honks = osmosis(honks, userid, false)
@@ -142,67 +142,20 @@ index 11adf5b..d15fbac 100644
  	case "home":
  		honks = gethonksforuser(userid, wanted)
  		honks = osmosis(honks, userid, true)
-@@ -2191,26 +2238,53 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
- 	case "first":
- 		honks = gethonksforuserfirstclass(userid, wanted)
- 		honks = osmosis(honks, userid, true)
--		templinfo["ServerMessage"] = "first class only"
-+        
-+        switch templinfo["Lang"] {
-+            case "fr":
-+                templinfo["ServerMessage"] = "première classe seulement"
-+            default:
-+                templinfo["ServerMessage"] = "first class only"
-+        }
- 	case "saved":
- 		honks = getsavedhonks(userid, wanted)
- 		templinfo["PageName"] = "saved"
--		templinfo["ServerMessage"] = "saved honks"
-+        switch templinfo["Lang"] {
+@@ -2229,6 +2276,12 @@ func webhydra(w http.ResponseWriter, r *http.Request) {
+ 			</form>`, login.GetCSRF("submithonker", r), xid)
+ 		msg := templates.Sprintf(`honks by honker: <a href="%s" ref="noreferrer">%s</a>%s`, xid, xid, miniform)
+ 		templinfo["ServerMessage"] = msg
++        switch templinfo["Lang"]{
 +            case "fr":
 +                templinfo["ServerMessage"] = "klaxons enregistrés"
 +            default:
 +                templinfo["ServerMessage"] = "saved honks"
 +        }
- 	case "combo":
- 		c := r.FormValue("c")
- 		honks = gethonksbycombo(userid, c, wanted)
- 		honks = osmosis(honks, userid, false)
--		templinfo["ServerMessage"] = "honks by combo: " + c
-+        switch templinfo["Lang"] {
-+            case "fr":
-+                templinfo["ServerMessage"] = "klaxons par groupe: " + c
-+            default:
-+                templinfo["ServerMessage"] = "honks by combo: " + c
-+        }
- 	case "convoy":
- 		c := r.FormValue("c")
- 		honks = gethonksbyconvoy(userid, c, wanted)
- 		honks = osmosis(honks, userid, false)
--		templinfo["ServerMessage"] = "honks in convoy: " + c
-+        switch templinfo["Lang"] {
-+            case "fr":
-+                templinfo["ServerMessage"] = "klaxons dans le convoi: " + c
-+            default:
-+                templinfo["ServerMessage"] = "honks in convoy: " + c
-+        }
- 	case "honker":
- 		xid := r.FormValue("xid")
- 		honks = gethonksbyxonker(userid, xid, wanted)
--		msg := templates.Sprintf(`honks by honker: <a href="%s" ref="noreferrer">%s</a>`, xid, xid)
--		templinfo["ServerMessage"] = msg
-+        switch templinfo["Lang"] {
-+		    case "fr":
-+                msg := templates.Sprintf(`klaxons par le klaxonneur: <a href="%s" ref="noreferrer">%s</a>`, xid, xid)
-+		        templinfo["ServerMessage"] = msg
-+            default:
-+                msg := templates.Sprintf(`honks by honker: <a href="%s" ref="noreferrer">%s</a>`, xid, xid)
-+		        templinfo["ServerMessage"] = msg
-+        }
  	default:
  		http.NotFound(w, r)
  	}
-@@ -2436,6 +2510,7 @@ func serve() {
+@@ -2454,6 +2507,7 @@ func serve() {
  	getters.HandleFunc("/server", serveractor)
  	posters.HandleFunc("/server/inbox", serverinbox)
  	posters.HandleFunc("/inbox", serverinbox)

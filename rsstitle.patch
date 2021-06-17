@@ -10,7 +10,7 @@ index 11adf5b..502e15f 100644
 +		Title:       "@" + name + " - honking from " + serverName,
  		Link:        home,
 -		Description: name + "honk rss",
-+		Description: "RSS Feed of honks from " + name + "@" + serverName,
++		Description: "Honks from " + name + "@" + serverName,
  		Image: &rss.Image{
  			URL:   base + "icon.png",
  			Title: name + "honk rss",

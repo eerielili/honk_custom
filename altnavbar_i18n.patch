@@ -1,0 +1,28 @@
+diff --git a/i18n_views/header.html b/usr/share/honk/views/header.html
+index 4f3373e..9e65c45 100644
+--- a/views/header.html
++++ b/views/header.html
+@@ -60,6 +60,23 @@
+ </form>
+ </ul>
+ </details>
++	
++<!-- CUSTOM HONK NAVIGATION BAR -->
++	<div  id="altnavbar">
++		<a href="/newhonk" tabindex="2">{{ .i18n.Newhonk }}</a> |
++		<a href="/front">{{ .i18n.Front }}</a> | 
++		<a href="/">{{ .i18n.Home }}</a> | 
++		<a href="/xzone">{{ .i18n.Xzone }}</a> | 
++		<a href="/atme">{{ .i18n.Atme }}</a> | 
++		<a href="/u/{{ .UserInfo.Username}}">{{ .i18n.Myhonks }}</a> | 
++		<a href="/account">{{ .i18n.Account }}</a> |
++		<form style="display:inline" action="/q" method="GET">
++		    <input type="text" tabindex="1" name="q" autocomplete="off"
++            size="10" placeholder="{{ .i18n.Search }}">
++		</form> 
++	</div>
++<!-- END -->
++
+ <p id="topspacer"></p>
+ {{ else }}
+ <span><a id="homelink" href="/">{{ .i18n.Home }}</a></span>

@@ -1,0 +1,3 @@
+#!/bin/sh
+HONKDIR="/usr/share/honk"
+su -l honk -c "honk -datadir $HONKDIR init"

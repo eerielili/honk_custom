@@ -8,31 +8,62 @@ ActivityPub server.
 These are mainly related to the UX, but patching of the Go files
 might happen if I feel the need.
 
-Branches are created based on released version numbers.
+# How to use
 
-# i18n
+If you are already using Honk, backup
+your `blob.db`, `honk.db` and `local.css`. For example, if you
+want prepare the source with the rss patch:
+```
+make rsstitle
+```
+This will download the source tarball if not already done, untar it
+and patch the source with the rsstitle.patch.
+The patches are useable outside the Makefile. You just have to make
+sure to put them in the root of the cloned honk repo or untarred source.
 
-The patch `03_bloated_i18n_implementation.patch` works on
-`web.go` in the latest changeset
-of honk, [dca9f49c629f](https://humungus.tedunangst.com/r/honk/v/dca9f49c629f).
+# Patches
+
+## i18n.patch : Translation of the honk user interface
+
+- Adds an option to switch language, cookie-based (defaults to eng)
+- Can also switch it in account settings
+
+The patches `i18n.patch` works in the latest honk release, `0.9.6`, and
+latest hg changeset of honk, [f74b9ce19463](https://humungus.tedunangst.com/r/honk/v/d/f74b9ce19463).
 
 The translated strings are contained in the `i18n.go` and
-`views/i18n/honkpage.js` files. Contact me if you need
+`i18n_views/honkpage.js` files. Contact me if you need
 help to add translations or notify me for problems, suggestions or
 improvements.
 
-Command line to do after adding translations to compile
-and run the i18n'd honk should ressemble this:
-```
-cp patches/03_bloated_i18n_implementation.patch ../honk/
-cp views/i18n/* ../honk/views/
-cd ../honk
-patch -b < 03_bloated_i18n_implementation.patch
-make all
-./honk
-```
+## rsstitle.patch : More descriptive RSS title and description
+
+Before the patch, the title and description of an user RSS Feed is like this:
+- title : yourhandle honk
+- description: yourhandle honk rss
+After the patch:
+- title: @yourhandle - honking from honk.club
+- description: Honks from yourhandle@honk.club
+
+I find it clearer.
+
+## altnavbar.patch (and the i18n version): honking faster with less clicks
+
+You need to shitpost fast ? Look no further, this will add a floating
+navigation bar at the page's top with link to:
+- /newhonk
+- /front
+- /home
+- /xzone
+- /@me
+- /u/yourhandle (so your can see your own honks)
+- /account
+
+The `altnavbar_i18n.patch` is the same, but the labels are i18n'd. 
 
 # Screenshots
 
-Alternative navigation bar, less uses of the drop down menu:
+Alternative navigation bar, less uses of the menu on the left:
 [alt nav bar menu for honk](https://git.les-miquelots.net/honk_custom/plain/scrots/honk_altnavbar.png)
+
+A video of the i18n module and the navbar patch [here](https://partage.les-miquelots.net/img/honk_i18n.mp4)
